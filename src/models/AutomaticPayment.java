@@ -41,11 +41,27 @@ public class AutomaticPayment extends Transaction {
     public void set_is_active(boolean is_active) {
         this.is_active = is_active;
     }
-
-    public AutomaticPayment(String title, AutomaticPayementScheduleType schedule_type, LocalDate date) {
+    public void update_next_payment_date() {
+        if (get_schedule_type() == AutomaticPayementScheduleType.Daily) {
+            set_next_payment_date(LocalDate.now().plusDays(1));
+        } else if (get_schedule_type() == AutomaticPayementScheduleType.Weekly) {
+            set_next_payment_date(LocalDate.now().plusDays(7));
+        } else if (get_schedule_type() == AutomaticPayementScheduleType.Monthly) {
+            set_next_payment_date(LocalDate.now().plusMonths(1));
+        }
+    }
+    public AutomaticPayment(String title, AutomaticPayementScheduleType schedule_type) {
+        set_id();
         set_title(title);
         set_schedule_type(schedule_type);
-        set_date(date);
+        if (schedule_type == AutomaticPayementScheduleType.Daily) {
+            set_next_payment_date(LocalDate.now().plusDays(1));
+        } else if (schedule_type == AutomaticPayementScheduleType.Weekly) {
+            set_next_payment_date(LocalDate.now().plusDays(7));
+        } else if (schedule_type == AutomaticPayementScheduleType.Monthly) {
+            set_next_payment_date(LocalDate.now().plusMonths(1));
+        }
+        set_date(LocalDate.now());
         set_is_active(true);
     }
 }

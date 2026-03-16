@@ -37,13 +37,14 @@ public class BankAccount {
         id=id_counter;
         set_balance((float)0);
         set_active(true);
+        set_iban("random_iban123");
     }
-    public BankAccount(String iban) {
-        id_counter++;
-        id = id_counter;
-        set_iban(iban);
-        set_active(true);
-    }
+//    public BankAccount(String iban) {
+//        id_counter++;
+//        id = id_counter;
+//        set_iban(iban);
+//        set_active(true);
+//    }
 
     @Override
     public String toString() {

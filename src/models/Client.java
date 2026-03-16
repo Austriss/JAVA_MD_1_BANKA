@@ -16,16 +16,21 @@ public class Client extends Person {
         address = addy;
     }
     public void add_bank_account(BankAccount acc) {
-        accounts.add(acc);
-    }
-    public void add_bank_account(String iban) {
         for (int i=0; i< accounts.size(); i++) {
-            if (iban.equals(accounts.get(i).get_iban())) {
+            if (acc.get_iban().equals(accounts.get(i).get_iban())) {
                 return;
             }
         }
-        accounts.add(new BankAccount(iban));
+        accounts.add(acc);
     }
+//    public void add_bank_account(String iban) {
+//        for (int i=0; i< accounts.size(); i++) {
+//            if (iban.equals(accounts.get(i).get_iban())) {
+//                return;
+//            }
+//        }
+//        accounts.add(new BankAccount());
+//    }
     public void set_client_code() {
         client_code = get_surname().charAt(0) + "_" + get_name().charAt(0) + get_personal_code();
     }
@@ -57,5 +62,10 @@ public class Client extends Person {
     }
     public String get_client_code() {
         return client_code;
+    }
+
+    public Client(String mail, Address addy) {
+        set_email(mail);
+        set_address(addy);
     }
 }

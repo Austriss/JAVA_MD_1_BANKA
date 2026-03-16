@@ -19,7 +19,15 @@ public class LargeTransaction extends Transaction{
     }
 
     public LargeTransaction(Employee emp) {
+        set_id();
         set_employee_to_check(emp);
         set_is_accepted(false);
+    }
+
+    public boolean can_employee_approve() {
+        if (get_employee_to_check().get_aproval_limit() >= get_amount()) {
+            return true;
+        }
+        return false;
     }
 }
