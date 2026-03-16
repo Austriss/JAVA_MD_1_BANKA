@@ -47,6 +47,15 @@ public class Client extends Person {
         return accounts;
     }
     public BankAccount get_account(String iban) {
-
+        BankAccount account = new BankAccount();
+        for (BankAccount acc: accounts) {
+            if (Objects.equals(acc.get_iban(), iban)) {
+                account = acc;
+            }
+        }
+        return account;
+    }
+    public String get_client_code() {
+        return client_code;
     }
 }

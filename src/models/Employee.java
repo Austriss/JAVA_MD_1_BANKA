@@ -13,10 +13,16 @@ public class Employee extends Person {
         return aproval_limit;
     }
     public void set_status(EmployeeStatus status) {
-        this.status = status;
+        if (status instanceof EmployeeStatus) {
+            this.status = status;
+        }
     }
     public void set_aproval_limit(Float limit) {
         aproval_limit = limit;
+    }
+    public Employee(EmployeeStatus status, float limit) {
+        set_status(status);
+        set_aproval_limit(limit);
     }
 
     @Override
