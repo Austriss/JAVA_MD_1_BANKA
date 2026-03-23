@@ -67,5 +67,6 @@ public class Client extends Person {
     public Client(String mail, Address addy) {
         set_email(mail);
         set_address(addy);
+        accounts = new ArrayList<BankAccount>();
     }
 }

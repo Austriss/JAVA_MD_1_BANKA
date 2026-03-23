@@ -11,7 +11,7 @@ public class Person {
         }
     }
     public void set_surname(String surname) {
-        if (!name.isEmpty()) {
+        if (!surname.isEmpty()) {
             this.surname = surname;
         }
     }

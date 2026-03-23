@@ -71,17 +71,17 @@ public class MainService {
         return accounts;
     }
     public static ArrayList<Transaction> get_account_transactions(String iban) {
-        ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+        ArrayList<Transaction> transactions_list = new ArrayList<Transaction>();
         for (Transaction transaction : transactions) {
             if (transaction.get_source_account().get_iban().equals(iban)) {
-                transactions.add(transaction);
+                transactions_list.add(transaction);
                 continue;
             }
             if (transaction.get_target_account().get_iban().equals(iban)) {
-                transactions.add(transaction);
+                transactions_list.add(transaction);
             }
         }
-        return transactions;
+        return transactions_list;
     }
     public static ArrayList<Client> get_clients_from_city(City city) throws Exception {
         ArrayList<Client> clients_list = new ArrayList<Client>();
@@ -196,7 +196,7 @@ public class MainService {
         // automaticpayment saves neccesarry auto payments, base transaction marks as paid
         for (Transaction transaction: transactions) {
             if (transaction instanceof AutomaticPayment) {
-                if (((AutomaticPayment) transaction).get_next_payment_date().isAfter(LocalDate.now())) {
+                if (((AutomaticPayment) transaction).get_next_payment_date().isBefore(LocalDate.now())) {
                     transactions.add(new Transaction(
                             transaction.get_source_account(), transaction.get_target_account(), transaction.get_amount(), transaction.get_description()
                     ));
@@ -209,7 +209,7 @@ public class MainService {
         ArrayList<Employee> array_copy = (ArrayList<Employee>) employees.clone();
         for (int i = 0; i < array_copy.size() - 1; i++) {
             boolean modified = false;
-            for (int n = 0; n < array_copy.size(); n++) {
+            for (int n = 0; n < array_copy.size() - 1; n++) {
                 if (array_copy.get(n).get_aproval_limit() > array_copy.get(n+1).get_aproval_limit()) {
                     Employee temp = array_copy.get(n);
                     array_copy.set(n, array_copy.get(n+1));

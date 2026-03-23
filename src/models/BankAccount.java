@@ -38,7 +38,6 @@ public class BankAccount {
         id=id_counter;
         set_balance((float)0);
         set_active(true);
-        set_iban("random_iban123");
     }
 
     @Override
