@@ -2,11 +2,8 @@ import models.*;
 import models.enums.AutomaticPayementScheduleType;
 import models.enums.City;
 import models.enums.EmployeeStatus;
-
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class MainService {
     public static ArrayList<Client> clients = new ArrayList<Client>();
@@ -174,7 +171,7 @@ public class MainService {
     }
     public static int create_auto_transaction(float amount, String desc, BankAccount source, BankAccount target, String title, AutomaticPayementScheduleType schedule_type, LocalDate date) {
         AutomaticPayment transaction = new AutomaticPayment(
-                title, schedule_type, date
+                title, schedule_type
         );
         transaction.set_source_acc(source);
         transaction.set_target_acc(target);
@@ -207,5 +204,23 @@ public class MainService {
                 }
             }
         }
+    }
+    public static ArrayList<Employee> sort_employees_by_limit(ArrayList<Employee> employees) {
+        ArrayList<Employee> array_copy = (ArrayList<Employee>) employees.clone();
+        for (int i = 0; i < array_copy.size() - 1; i++) {
+            boolean modified = false;
+            for (int n = 0; n < array_copy.size(); n++) {
+                if (array_copy.get(n).get_aproval_limit() > array_copy.get(n+1).get_aproval_limit()) {
+                    Employee temp = array_copy.get(n);
+                    array_copy.set(n, array_copy.get(n+1));
+                    array_copy.set(n+1, temp);
+                    modified = true;
+                }
+            }
+            if (!modified) {
+                return array_copy;
+            }
+        }
+        return array_copy;
     }
 }

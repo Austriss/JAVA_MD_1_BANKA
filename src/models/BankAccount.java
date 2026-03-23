@@ -9,8 +9,9 @@ public class BankAccount {
     private boolean is_active;
 
     public void set_iban(String ibann) {
-        //todo regex
-        iban = ibann;
+        if (ibann.matches("^[A-Z0-9]{15,34}$")) {
+            iban = ibann;
+        }
     }
     public void set_balance(Float bal) {
         balance = bal;
@@ -39,12 +40,6 @@ public class BankAccount {
         set_active(true);
         set_iban("random_iban123");
     }
-//    public BankAccount(String iban) {
-//        id_counter++;
-//        id = id_counter;
-//        set_iban(iban);
-//        set_active(true);
-//    }
 
     @Override
     public String toString() {

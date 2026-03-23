@@ -5,7 +5,6 @@ public class Person {
     private String surname;
     private String personal_code;
 
-    //todo regex for everything
     public void set_name(String name) {
         if (!name.isEmpty()) {
             this.name = name;
@@ -17,7 +16,9 @@ public class Person {
         }
     }
     public void set_personal_code(String code) {
-        personal_code = code;
+        if (code.matches("^\\d{11}$")) {
+            personal_code = code;
+        }
     }
     public String get_name() {
         return name;

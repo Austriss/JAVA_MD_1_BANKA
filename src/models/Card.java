@@ -25,8 +25,9 @@ public class Card {
         return account;
     }
     public void set_card_number(int number) {
-        //todo regex
-        card_number = number;
+        if (String.valueOf(number).length() == 16) {
+            card_number = number;
+        }
     }
     public void set_expiry(LocalDate date) {
         expiry_date = date;
