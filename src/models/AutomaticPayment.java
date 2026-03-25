@@ -64,4 +64,14 @@ public class AutomaticPayment extends Transaction {
         set_date(LocalDate.now());
         set_is_active(true);
     }
+
+    @Override
+    public String toString() {
+        return "AutomaticPayment{" +
+                "title='" + title + '\'' +
+                ", schedule_type=" + schedule_type +
+                ", next_payment_date=" + next_payment_date +
+                ", is_active=" + is_active +
+                '}';
+    }
 }

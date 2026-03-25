@@ -24,14 +24,10 @@ public class Transaction {
         description = desc;
     }
     public void set_source_acc(BankAccount acc) {
-        if (!acc.get_iban().isEmpty()) {
-            source_account = acc;
-        }
+        source_account = acc;
     }
     public void set_target_acc(BankAccount acc) {
-        if (!acc.get_iban().isEmpty()) {
-            target_account = acc;
-        }
+        target_account = acc;
     }
     public void set_id() {
         id=id_counter;
@@ -73,4 +69,15 @@ public class Transaction {
         return source_account.get_balance() >= get_amount();
     }
 
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "id=" + id +
+                ", datetime=" + datetime +
+                ", amount=" + amount +
+                ", description='" + description + '\'' +
+                ", source_account=" + source_account +
+                ", target_account=" + target_account +
+                '}';
+    }
 }

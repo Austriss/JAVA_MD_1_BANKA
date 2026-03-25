@@ -9,7 +9,8 @@ public class BankAccount {
     private boolean is_active;
 
     public void set_iban(String ibann) {
-        if (ibann.matches("^[A-Z0-9]{15,34}$")) {
+        // atsauce regex: https://stackoverflow.com/questions/44656264/iban-regex-design
+        if (ibann.matches("^[A-Z]{2}(?:[ ]?[0-9]){18,20}$\n")) {
             iban = ibann;
         }
     }

@@ -30,4 +30,12 @@ public class LargeTransaction extends Transaction{
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "LargeTransaction{" +
+                "employee_to_check=" + employee_to_check +
+                ", is_accepted=" + is_accepted +
+                '}';
+    }
 }

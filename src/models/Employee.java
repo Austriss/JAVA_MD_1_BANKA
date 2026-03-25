@@ -20,7 +20,8 @@ public class Employee extends Person {
     public void set_aproval_limit(Float limit) {
         aproval_limit = limit;
     }
-    public Employee(EmployeeStatus status, float limit) {
+    public Employee(EmployeeStatus status, float limit, String name, String surname, String personal_code) {
+        super(name, surname, personal_code);
         set_status(status);
         set_aproval_limit(limit);
     }

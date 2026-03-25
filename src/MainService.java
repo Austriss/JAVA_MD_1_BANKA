@@ -11,18 +11,76 @@ public class MainService {
     public static ArrayList<Card> cards = new ArrayList<Card>();
     public static ArrayList<Transaction> transactions = new ArrayList<Transaction>();
 
-    public static void create_employee(String name, String surname, String personal_code, EmployeeStatus status, float approval_limit) throws Exception {
+    public static void main(String[] args) throws Exception {
+        Person person = new Person("kristaps", "porzingis", "12345678901");
+
+        Address add = new Address(City.Pope, "inzinieru iela", 10);
+        Employee employee = new Employee(
+                EmployeeStatus.Active,
+                100,
+                "Austris",
+                "Zeidmanis",
+                "23456789012"
+        );
+        Client client = new Client("austris@austris.com" , add, "Austris", "Zeidmanis", "12345678984");
+        client.set_client_code();
+
+        BankAccount sa = new BankAccount();
+        sa.set_iban("LV00HABA123456789");
+        sa.set_balance((float)500);
+        BankAccount ta = new BankAccount();
+        ta.set_iban("LV00HABA987654321");
+        ta.set_balance((float)100);
+
+        client.add_bank_account(sa);
+
+        Card card = new Card();
+        card.set_account(sa);
+
+        Transaction transaction = new Transaction(
+                sa,
+                ta,
+                50,
+                "maksajums"
+        );
+
+        AutomaticPayment autoPayment = new AutomaticPayment(
+                "ire",
+                AutomaticPayementScheduleType.Monthly
+        );
+        autoPayment.set_source_acc(sa);
+        autoPayment.set_target_acc(ta);
+        autoPayment.set_amount(75);
+        autoPayment.set_description("masksajums");
+
+        LargeTransaction largeTransac = new LargeTransaction(employee);
+        largeTransac.set_source_acc(sa);
+        largeTransac.set_target_acc(ta);
+        largeTransac.set_amount(200);
+        largeTransac.set_description("parskaitijums");
+        largeTransac.set_is_accepted(largeTransac.can_employee_approve());
+
+        System.out.println(person);
+        System.out.println(add);
+        System.out.println(employee);
+        System.out.println(client);
+        System.out.println(sa);
+        System.out.println(ta);
+        System.out.println(card);
+        System.out.println(transaction);
+        System.out.println(autoPayment);
+        System.out.println(largeTransac);
+    }
+    public static Employee create_employee(String name, String surname, String personal_code, EmployeeStatus status, float approval_limit) throws Exception {
         for (Employee emp: employees) {
             if (emp.get_personal_code().equals(personal_code)) {
                 throw new Exception("Employee with same pc already exists");
             }
         }
-        Employee emp = new Employee(status, approval_limit);
-        emp.set_name(name);
-        emp.set_surname(surname);
-        emp.set_personal_code(personal_code);
+        Employee emp = new Employee(status, approval_limit, name, surname, personal_code);
         System.out.println("created employee " + emp);
         employees.add(emp);
+        return emp;
     }
 
     public static Employee find_employee_by_pc(String personal_code) {
@@ -34,7 +92,6 @@ public class MainService {
         return null;
     }
     public static boolean update_employee_approval_limit(String personal_code, float limit) {
-        // return: successful update or not
         Employee emp = find_employee_by_pc(personal_code);
         if (emp instanceof Employee) {
             emp.set_aproval_limit(limit);
@@ -43,7 +100,6 @@ public class MainService {
         return false;
     }
     public static boolean update_employee_status(String personal_code, EmployeeStatus status) {
-        // return: successful update or not
         Employee emp = find_employee_by_pc(personal_code);
         if (emp instanceof Employee) {
             emp.set_status(status);
@@ -193,7 +249,6 @@ public class MainService {
         return transaction.get_id();
     }
     public static void make_auto_payments() {
-        // automaticpayment saves neccesarry auto payments, base transaction marks as paid
         for (Transaction transaction: transactions) {
             if (transaction instanceof AutomaticPayment) {
                 if (((AutomaticPayment) transaction).get_next_payment_date().isBefore(LocalDate.now())) {

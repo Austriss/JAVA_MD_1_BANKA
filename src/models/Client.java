@@ -10,7 +10,10 @@ public class Client extends Person {
     private String client_code;
 
     public void set_email(String mail) {
-        email = mail;
+        //atsauce regex: https://regex101.com/library/SOgUIV
+        if (mail.matches("/^((?!\\.)[\\w-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$")) {
+            email = mail;
+        }
     }
     public void set_address(Address addy) {
         address = addy;
@@ -64,7 +67,8 @@ public class Client extends Person {
         return client_code;
     }
 
-    public Client(String mail, Address addy) {
+    public Client(String mail, Address addy, String name, String surname, String personal_code) {
+        super(name, surname, personal_code);
         set_email(mail);
         set_address(addy);
         accounts = new ArrayList<BankAccount>();

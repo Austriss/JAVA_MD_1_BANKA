@@ -47,7 +47,6 @@ public class Card {
     public Card() {
         set_expiry(LocalDate.now().plusMonths(6));
         set_active(true);
-
     }
     public Card(int number, LocalDate expiry, int cvv, BankAccount acc) {
         set_card_number(number);
